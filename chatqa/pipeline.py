@@ -184,12 +184,14 @@ class ChatQA:
                          + "\n".join(lines))
         if self.use_ledger:
             evs = self.events()
-            ledger = self.ledger_text(evs)
-            if len(ledger) > 25000:
+            if not self.is_small:
+                # Big chat: the retrieved messages are partial, so add the matching ledger events,
+                # which summarise what happened elsewhere in the chat. (For a small chat the full
+                # messages are already there and the ledger would only repeat them.)
                 idx = BM25([f"{e['topic']} {e['summary']}" for e in evs])
                 keep = sorted(idx.top(question, 60))
-                ledger = self.ledger_text([evs[i] for i in keep])
-            parts.append("LEDGER OF EXTRACTED EVENTS (hint only, may contain mistakes):\n" + ledger)
+                parts.append("RELEVANT LEDGER EVENTS FROM THE WHOLE CHAT (hint only, may contain mistakes):\n"
+                             + self.ledger_text([evs[i] for i in keep]))
             st = self.state()
             compact = {k: st.get(k) for k in ("decisions", "owners", "deadlines", "unassigned", "open_items")}
             parts.append("DERIVED PROJECT STATE (hint only, may contain mistakes):\n"
