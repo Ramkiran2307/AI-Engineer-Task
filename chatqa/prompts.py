@@ -1,6 +1,6 @@
 """Prompts and JSON schemas. Nothing here may mention a specific chat's facts."""
 
-PROMPT_VERSION = "v3"
+PROMPT_VERSION = "v4"
 
 CHAT_RULES = """\
 How to read the chat:
@@ -79,6 +79,9 @@ they are the source of truth.
 Rules for the state:
 - decisions: one entry per topic with the CURRENT decision. If it changed, list the earlier versions in
   `history` (oldest first, each with its date). Use status "tentative" if it was never clearly agreed.
+  Only list something as a decision if a message shows the group (or the person in charge) agreeing or
+  making the call. If only options were shared or only one person stated a preference, it is NOT a
+  decision: put it in open_items ("X not decided yet; Y prefers ...").
 - owners: one entry per workstream/task with its CURRENT owner after all handovers, and its latest known
   status: done | in_progress | not_started | blocked | unknown. Put promises and misses in `detail`.
 - deadlines: current date of each deadline/event, with how it changed in `history`. certainty "confirmed"

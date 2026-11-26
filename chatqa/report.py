@@ -45,10 +45,11 @@ def _cites(ids: list[int], by_id: dict[int, Message]) -> str:
     if not ids:
         return " ⚠ *no verifiable source*"
     parts = []
+    ids = sorted(ids, reverse=True)  # newest first: the latest message is what proves the current state
     for i in ids[:4]:
         m = by_id[i]
         parts.append(f"#{m.id} {m.ts:%d %b} {m.sender or 'system'}")
-    more = f" +{len(ids) - 4}" if len(ids) > 4 else ""
+    more = f" +{len(ids) - 4} earlier" if len(ids) > 4 else ""
     return f" — _[{'; '.join(parts)}{more}]_"
 
 

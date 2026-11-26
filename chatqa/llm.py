@@ -21,7 +21,7 @@ import requests
 
 PRESETS = {
     "groq": {"base_url": "https://api.groq.com/openai/v1", "model": "llama-3.3-70b-versatile", "key_env": "GROQ_API_KEY"},
-    "gemini": {"base_url": "https://generativelanguage.googleapis.com/v1beta/openai", "model": "gemini-2.5-flash", "key_env": "GEMINI_API_KEY"},
+    "gemini": {"base_url": "https://generativelanguage.googleapis.com/v1beta/openai", "model": "gemini-flash-latest", "key_env": "GEMINI_API_KEY"},
     "openai": {"base_url": "https://api.openai.com/v1", "model": None, "key_env": "OPENAI_API_KEY"},
     "ollama": {"base_url": "http://localhost:11434/v1", "model": "qwen2.5:7b", "key_env": None},
     "anthropic": {"base_url": None, "model": "claude-opus-5-5", "key_env": "ANTHROPIC_API_KEY"},
