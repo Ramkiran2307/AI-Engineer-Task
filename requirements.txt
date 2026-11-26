@@ -1,0 +1,6 @@
+requests>=2.31
+python-dotenv>=1.0
+# Only needed for LLM_PROVIDER=anthropic
+anthropic>=1.0
+# Tests
+pytest>=8
