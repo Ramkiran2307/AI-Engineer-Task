@@ -68,3 +68,14 @@ def test_bad_status_and_ids_sanitised(msgs):
     a = verify_answer("q", {"status": "definitely", "answer": "x", "evidence": [{"msg_id": "abc", "quote": ""}]}, msgs)
     assert a.status == "not_in_chat"
     assert clean_ids([1, "2", 2, 99999, None, "x"], {m.id: m for m in msgs}) == [1, 2]
+
+
+def test_key_drift_tolerated_but_invented_quote_still_rejected(msgs):
+    # Seen live: model used "msg_ids" and invented the quote "Main nahi kar paunga, koi aur dekh lo".
+    a = verify_answer("q", {"status": "answered", "answer": "search unassigned",
+                            "evidence": [{"msg_ids": 44, "quote": "Main nahi kar paunga, koi aur dekh lo"}]}, msgs)
+    assert a.evidence and a.evidence[0].msg.id == 44 and a.evidence[0].flag == "quote_mismatch"
+    assert a.downgraded
+    b = verify_answer("q", {"status": "answered", "answer": "search unassigned",
+                            "evidence": [{"msg_ids": [44], "quote": "search koi aur le lo please"}]}, msgs)
+    assert not b.downgraded and b.evidence[0].flag == "ok"

@@ -134,7 +134,9 @@ class LLM:
             "model": self.cfg.model,
             "temperature": 0,
             "max_tokens": max_tokens,
-            "response_format": {"type": "json_object"},
+            # Ask for schema-constrained output; downgraded below if the endpoint rejects it.
+            "response_format": {"type": "json_schema",
+                                "json_schema": {"name": "reply", "schema": schema, "strict": True}},
             "messages": [
                 {"role": "system", "content": system + schema_hint},
                 {"role": "user", "content": (context + "\n\n" if context else "") + prompt},
@@ -148,13 +150,20 @@ class LLM:
                     raise LLMError(f"Network error calling {url}: {e}") from e
                 time.sleep(3)
                 continue
+            if r.status_code == 429 and re.search(r"per ?day|PerDay|daily", r.text, re.IGNORECASE):
+                raise LLMError(f"{self.cfg.provider} daily quota exhausted for {self.cfg.model}: {r.text[:300]}")
             if r.status_code == 429 or r.status_code >= 500:
                 wait = _retry_after(r, attempt)
                 self._log(f"{r.status_code} from provider, waiting {wait:.0f}s (attempt {attempt + 1})")
                 time.sleep(wait)
                 continue
-            if r.status_code == 400 and "response_format" in r.text and "response_format" in body:
-                body.pop("response_format")  # some endpoints don't support JSON mode
+            if r.status_code == 400 and "response_format" in body:
+                # json_schema -> json_object -> plain prompt-only JSON, for endpoints that lack support
+                if body["response_format"]["type"] == "json_schema":
+                    self._log(f"json_schema rejected ({r.text[:120]}), falling back to json_object")
+                    body["response_format"] = {"type": "json_object"}
+                else:
+                    body.pop("response_format")
                 continue
             if r.status_code >= 400:
                 raise LLMError(f"{self.cfg.provider} returned HTTP {r.status_code}: {r.text[:500]}")

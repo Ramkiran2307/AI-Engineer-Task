@@ -107,8 +107,13 @@ def verify_answer(question: str, raw: dict, messages: list[Message]) -> Verified
     )
     seen = set()
     for ev in raw.get("evidence", []) or []:
+        if not isinstance(ev, dict):
+            continue
         quote = str(ev.get("quote", "") or "")
-        msg, flag = resolve_citation(ev.get("msg_id"), quote, by_id, messages)
+        mid = ev.get("msg_id", ev.get("msg_ids", ev.get("id")))  # tolerate key drift from weaker models
+        if isinstance(mid, list):
+            mid = mid[0] if mid else None
+        msg, flag = resolve_citation(mid, quote, by_id, messages)
         if msg is None:
             out.dropped.append({"msg_id": ev.get("msg_id"), "quote": quote, "reason": flag})
             continue
