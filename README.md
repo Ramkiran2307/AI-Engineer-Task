@@ -1,5 +1,18 @@
 # Take-Home Task: Make Sense of the Team Chat
 
+> **Solution quick start**
+>
+> ```bash
+> pip install -r requirements.txt
+> cp .env.example .env          # add one key, e.g. LLM_PROVIDER=gemini + GEMINI_API_KEY=...
+> python run.py --chat data/team_chat.txt --state                     # state of the project
+> python run.py --chat data/team_chat.txt --ask "Who owns payments?"  # answer + evidence
+> python run.py --chat path/to/any_chat.txt                           # interactive
+> ```
+>
+> Design: [docs/DECOMPOSITION.md](docs/DECOMPOSITION.md) · Results, failures, how it works: [docs/FINAL_NOTES.md](docs/FINAL_NOTES.md) · Sample outputs: [docs/sample_output/](docs/sample_output/)
+
+
 
 ---
 
