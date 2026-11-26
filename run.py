@@ -53,6 +53,7 @@ def main(argv=None) -> int:
     ap.add_argument("--json", action="store_true", help="print answers as JSON")
     ap.add_argument("--offline", action="store_true", help="no LLM: show best-matching messages only")
     ap.add_argument("--no-ledger", action="store_true", help="answer from raw messages only (skip ledger/state)")
+    ap.add_argument("--no-review", action="store_true", help="skip the second-pass answer review (faster, less careful)")
     ap.add_argument("--no-cache", action="store_true", help="recompute ledger/state instead of using .cache/")
     ap.add_argument("--provider", help="override LLM_PROVIDER (groq, gemini, openai, ollama, anthropic)")
     ap.add_argument("--model", help="override LLM_MODEL")
@@ -83,7 +84,7 @@ def main(argv=None) -> int:
         return 2
     print(f"Using {cfg.label()}", file=sys.stderr)
     qa = ChatQA(messages, LLM(cfg, verbose=args.verbose), use_ledger=not args.no_ledger,
-                use_cache=not args.no_cache, verbose=args.verbose)
+                use_cache=not args.no_cache, review=not args.no_review, verbose=args.verbose)
 
     outputs: list[str] = []
     try:

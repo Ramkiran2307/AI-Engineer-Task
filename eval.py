@@ -49,6 +49,7 @@ def main() -> int:
     ap.add_argument("--chat")
     ap.add_argument("--only", help="comma-separated question ids")
     ap.add_argument("--no-ledger", action="store_true")
+    ap.add_argument("--no-review", action="store_true")
     ap.add_argument("--provider")
     ap.add_argument("--model")
     ap.add_argument("--label", help="name for the results files")
@@ -67,7 +68,7 @@ def main() -> int:
     if cfg is None:
         print("No LLM configured (see .env.example).", file=sys.stderr)
         return 2
-    label = args.label or (cfg.label().replace(":", "_").replace("/", "_") + ("_noledger" if args.no_ledger else ""))
+    label = args.label or (cfg.label().replace(":", "_").replace("/", "_") + ("_noledger" if args.no_ledger else "") + ("_noreview" if args.no_review else ""))
     out_dir = Path("eval_results")
     out_dir.mkdir(exist_ok=True)
     out_json = out_dir / f"{label}.json"
@@ -75,8 +76,8 @@ def main() -> int:
         r["id"]: r for r in json.loads(out_json.read_text(encoding="utf-8"))["results"]}
 
     msgs = parse_chat_file(chat)
-    qa = ChatQA(msgs, LLM(cfg, verbose=args.verbose), use_ledger=not args.no_ledger, verbose=args.verbose)
-    print(f"Evaluating {len(qs)} questions with {cfg.label()} (ledger={'off' if args.no_ledger else 'on'})", file=sys.stderr)
+    qa = ChatQA(msgs, LLM(cfg, verbose=args.verbose), use_ledger=not args.no_ledger, review=not args.no_review, verbose=args.verbose)
+    print(f"Evaluating {len(qs)} questions with {cfg.label()} (ledger={'off' if args.no_ledger else 'on'}, review={'off' if args.no_review else 'on'})", file=sys.stderr)
 
     for q in qs:
         if q["id"] in results and results[q["id"]].get("result"):
@@ -90,13 +91,14 @@ def main() -> int:
         results[q["id"]] = {"id": q["id"], "question": q["question"], "expected": q["answer"],
                             "result": a, "auto_pass": ok, "problems": problems}
         print(f"  Q{q['id']:>2} {'PASS' if ok else 'FAIL'}  {a['status']:<12} {a['answer'][:90]}", file=sys.stderr)
-        out_json.write_text(json.dumps({"model": cfg.label(), "ledger": not args.no_ledger,
+        out_json.write_text(json.dumps({"model": cfg.label(), "ledger": not args.no_ledger, "review": not args.no_review,
                                         "results": sorted(results.values(), key=lambda r: r["id"])},
                                        ensure_ascii=False, indent=2), encoding="utf-8")
 
     done = [r for r in results.values() if r.get("result")]
     passed = sum(r["auto_pass"] for r in done)
-    md = [f"# Eval results: {cfg.label()} (ledger {'off' if args.no_ledger else 'on'})", "",
+    md = [f"# Eval results: {cfg.label()} (ledger {'off' if args.no_ledger else 'on'}, "
+          f"review {'off' if args.no_review else 'on'})", "",
           f"Auto-check: **{passed} / {len(done)}** passed.", "",
           "| # | Question | Status | System answer | Cited | Auto | Problems |", "|---|---|---|---|---|---|---|"]
     for r in sorted(done, key=lambda r: r["id"]):

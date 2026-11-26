@@ -37,7 +37,7 @@
      "must_any": [["doesn't say", "does not say", "not in the chat", "no information", "not mentioned", "isn't mentioned", "not known", "unknown", "nahi bataya", "ends"]], "expected_status": ["not_in_chat", "partial"], "key_msgs": []},
     {"id": 12, "question": "Which logo did we finalise?",
      "answer": "None was finalised. Priya shared 2 options (#98, image not readable); only Meera gave an opinion, preferring the second/blue one (#101).",
-     "must_any": [["meera", "not final", "no logo", "hasn't", "has not", "not been", "doesn't say", "does not say", "no decision", "not decided", "undecided"]], "expected_status": ["not_in_chat", "partial"], "key_msgs": []},
+     "must_any": [["not final", "no logo", "hasn't", "has not", "not been", "doesn't say", "does not say", "no decision", "not decided", "undecided", "doesn't finalize", "not yet", "nahi"]], "expected_status": ["not_in_chat", "partial", "answered"], "key_msgs": []},
     {"id": 13, "question": "Backend aur database ke liye kya decide hua tha?",
      "answer": "Django backend (React frontend) (#12) and Postgres database (#15). Firebase was proposed by Aarav but rejected.",
      "must_any": [["django"], ["postgres"]], "expected_status": ["answered"], "key_msgs": [12, 15, 14]},

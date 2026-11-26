@@ -18,6 +18,8 @@ class FakeLLM:
 
     def complete_json(self, system, context, prompt, schema, max_tokens=4000):
         self.contexts.append(context)
+        if system == prompts.REVIEW_SYSTEM and system not in self.responses:
+            return self.responses[prompts.ANSWER_SYSTEM]  # reviewer accepts the draft
         return self.responses[system]
 
 
@@ -93,3 +95,36 @@ def test_generic_chat_other_names(tmp_path):
                                            "evidence": [{"msg_id": 1, "quote": "I'll do the poster", "why": ""}]}})
     qa = ChatQA(msgs, llm, cache_dir=tmp_path, use_ledger=False)
     assert qa.ask("who does the poster").evidence[0].msg.sender == "Zed"
+
+
+def test_answer_language_detection():
+    from chatqa.prompts import answer_language
+    assert answer_language("Rohan ne tests complete kar diye kya?") == "Hinglish"
+    assert answer_language("Priya abhi kis cheez pe kaam kar rahi hai?") == "Hinglish"
+    assert answer_language("Backend aur database ke liye kya decide hua tha?") == "Hinglish"
+    assert answer_language("Who is responsible for payments now, and did they finish it?") == "English"
+    assert answer_language("Is Kabir coming to the Saturday meeting?") == "English"
+    assert answer_language("Is there anything nobody is working on?") == "English"
+    assert answer_language("डेमो कब है?") == "Hinglish"
+
+
+def test_english_question_with_the_is_english():
+    # regression: "the" used to be in the Hinglish word list, so this was answered in Hinglish
+    from chatqa.prompts import answer_language
+    assert answer_language("What is the total budget of the project?") == "English"
+    assert answer_language("Where are we deploying, and is the app live yet?") == "English"
+
+
+def test_review_pass_can_correct_the_draft(tmp_path):
+    msgs = parse_chat_file(DATA)
+    dom = next(m.id for m in msgs if "Namecheap pe Rs 650" in m.text)
+    llm = FakeLLM({
+        prompts.ANSWER_SYSTEM: {"status": "answered", "answer": "The total budget is Rs 650.", "changed_over_time": "",
+                                "confidence": "high", "evidence": [{"msg_id": dom, "quote": "Rs 650", "why": ""}]},
+        prompts.REVIEW_SYSTEM: {"status": "not_in_chat", "answer": "The chat doesn't say; only the domain cost (Rs 650).",
+                                "changed_over_time": "", "confidence": "high",
+                                "evidence": [{"msg_id": dom, "quote": "Namecheap pe Rs 650", "why": "only cost"}]},
+    })
+    a = ChatQA(msgs, llm, cache_dir=tmp_path, use_ledger=False).ask("What is the total budget?")
+    assert a.status == "not_in_chat" and a.draft["status"] == "answered"
+    assert ChatQA(msgs, llm, cache_dir=tmp_path, use_ledger=False, review=False).ask("x").status == "answered"

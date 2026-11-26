@@ -23,12 +23,13 @@ CHUNK_OVERLAP_MSGS = 6
 
 class ChatQA:
     def __init__(self, messages: list[Message], llm: LLM | None, cache_dir: str | Path = ".cache",
-                 use_ledger: bool = True, use_cache: bool = True, verbose: bool = False):
+                 use_ledger: bool = True, use_cache: bool = True, review: bool = True, verbose: bool = False):
         self.messages = messages
         self.by_id = {m.id: m for m in messages}
         self.llm = llm
         self.use_ledger = use_ledger
         self.use_cache = use_cache
+        self.review = review
         self.verbose = verbose
         self.header = chat_header(messages)
         self.rendered = render_messages(messages)
@@ -202,6 +203,25 @@ class ChatQA:
         self._require_llm()
         context = self.build_context(question)
         self._log(f"answering with {len(context)} chars of context")
-        raw = self.llm.complete_json(prompts.ANSWER_SYSTEM, context, f"QUESTION: {question}\n\nAnswer as JSON.",
+        # The model ignores "reply in the question's language" when the chat itself is Hinglish,
+        # so the language is decided in code and stated explicitly.
+        if prompts.answer_language(question) == "Hinglish":
+            lang_rule = "Write `answer` and `changed_over_time` in Hinglish (Roman-script Hindi mixed with English)."
+        else:
+            lang_rule = "Write `answer` and `changed_over_time` in plain English (even though the chat uses Hinglish)."
+        raw = self.llm.complete_json(prompts.ANSWER_SYSTEM, context,
+                                     f"QUESTION: {question}\n\n{lang_rule} Answer as JSON.",
                                      prompts.ANSWER_SCHEMA, max_tokens=1500)
-        return verify_answer(question, raw, self.messages)
+        draft = raw
+        if self.review:
+            # Second pass: check the draft claim-by-claim against the messages. This catches answers
+            # whose citations are real but which over-claim (a cost read as a total, a plan as a status).
+            self._log("reviewing draft answer")
+            raw = self.llm.complete_json(
+                prompts.REVIEW_SYSTEM, context,
+                f"QUESTION: {question}\n\nDRAFT ANSWER:\n{json.dumps(draft, ensure_ascii=False)}\n\n"
+                f"{lang_rule} Return the reviewed answer as JSON.",
+                prompts.ANSWER_SCHEMA, max_tokens=1500)
+        out = verify_answer(question, raw, self.messages)
+        out.draft = draft if self.review else None
+        return out

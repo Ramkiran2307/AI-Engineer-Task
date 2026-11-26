@@ -55,6 +55,7 @@ class VerifiedAnswer:
     dropped: list[dict] = field(default_factory=list)
     downgraded: bool = False
     raw: dict | None = None
+    draft: dict | None = None   # pre-review answer, when the review pass ran
 
     def to_dict(self) -> dict:
         return {
@@ -70,6 +71,7 @@ class VerifiedAnswer:
                 for e in self.evidence
             ],
             "dropped_citations": self.dropped,
+            "draft_before_review": self.draft,
         }
 
 

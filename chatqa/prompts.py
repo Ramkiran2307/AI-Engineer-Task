@@ -1,6 +1,6 @@
 """Prompts and JSON schemas. Nothing here may mention a specific chat's facts."""
 
-PROMPT_VERSION = "v4"
+PROMPT_VERSION = "v6"
 
 CHAT_RULES = """\
 How to read the chat:
@@ -134,13 +134,16 @@ Answering rules:
 - status:
   "answered"    the messages clearly answer the question;
   "partial"     part is answered, part is not in the chat (say which part is unknown);
-  "not_in_chat" the chat does not contain the answer. Then the answer must start with
-                "The chat doesn't say" (or in Hinglish: "Chat mein ye nahi bataya gaya") and may add the
-                latest related thing the chat DOES say.
+  "not_in_chat" the chat does not contain the answer. Then say clearly that the chat doesn't say it
+                ("The chat doesn't say ..."), and you may add the latest related thing the chat DOES say.
+  Do not stretch a related fact into an answer: a single cost is not a total budget, one person's
+  preference is not a group decision, a plan or target date is not a status.
 - evidence: the messages your answer relies on, most important first, including the LATEST message on the
   topic. For each: msg_id (integer), quote = a short EXACT copy of words from that message (original
   language, no paraphrase), why = what it shows. Do not cite messages that don't support the answer.
-- Language: if the question is in Hinglish/Hindi, answer in Hinglish; otherwise answer in English.
+- "Is X done / live / finished now?": if the last message on it is only a plan or promise, do NOT claim it
+  is or isn't done now; say the chat doesn't confirm it and give the latest known plan with its date.
+- Write the answer in the language named in the prompt (it is detected from the question).
 - Be concise: 1-4 sentences. Mention names and dates."""
 
 ANSWER_SCHEMA = _obj({
@@ -151,3 +154,38 @@ ANSWER_SCHEMA = _obj({
         "msg_id": {"type": "integer"}, "quote": {"type": "string"}, "why": {"type": "string"}})},
     "confidence": {"type": "string", "enum": ["high", "medium", "low"]},
 })
+
+
+REVIEW_SYSTEM = f"""You are a strict reviewer of an answer about a team group chat. A confident wrong answer is worse than
+saying the chat doesn't say. You get the chat, the question and a DRAFT answer (JSON).
+
+{CHAT_RULES}
+
+Check the draft claim by claim against the messages:
+1. Is each claim directly supported by a message? Remove or correct anything that is not.
+2. Is there a LATER message that changes or reverses a claim? Then the later one wins.
+3. Does the draft stretch a related fact into an answer (a single cost presented as a total, an opinion
+   presented as a decision, a plan/target presented as done or not done, a question presented as a
+   handover)? Then change status to "partial" or "not_in_chat" and say what the chat does and doesn't say.
+4. Does it say "the chat doesn't say" although a message does answer it? Then answer it.
+5. Are the evidence msg_ids and EXACT quotes right, and is the latest relevant message cited?
+Return the corrected answer as JSON with the same fields as the draft (return it unchanged if it is right).
+Keep the language the prompt asks for."""
+
+
+# Hindi words that are not also common English words ("the", "me", "par" are left out on purpose).
+_HINGLISH_MARKERS = set("""
+kya kaun kab kahan kyun kaise kitna kitne kis kisne kiska kiski kiske hai hain tha thi ho hua hui
+ne ka ki ke ko se mein pe kar karo karna kiya diya diye raha rahi rahe abhi aur nahi haan koi kuch liye
+wala wali wale kaam gaya gayi bata batao chahiye hoga hogi sakta sakti
+""".split())
+
+
+def answer_language(question: str) -> str:
+    """Deterministic language pick for the reply: 'Hinglish' or 'English'."""
+    import re
+    if re.search(r"[ऀ-ॿ]", question):
+        return "Hinglish"
+    words = re.findall(r"[a-z]+", question.lower())
+    hits = sum(w in _HINGLISH_MARKERS for w in words)
+    return "Hinglish" if hits >= 2 and hits / max(len(words), 1) >= 0.2 else "English"
