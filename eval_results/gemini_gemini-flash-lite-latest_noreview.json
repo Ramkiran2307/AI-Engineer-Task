@@ -1,0 +1,799 @@
+{
+  "model": "gemini:gemini-flash-lite-latest",
+  "ledger": true,
+  "review": false,
+  "results": [
+    {
+      "id": 1,
+      "question": "What payment method are we using for the demo?",
+      "expected": "Razorpay in test mode. On 20 Oct they dropped Razorpay for a UPI QR + manual confirm (#51, 'final decision'), but on 2 Nov Kabir found test mode works without KYC and Aarav said 'Razorpay test mode final. QR wala scrap.' (#66).",
+      "result": {
+        "question": "What payment method are we using for the demo?",
+        "status": "answered",
+        "answer": "The group is using Razorpay in test mode for the demo, as it works without business KYC.",
+        "changed_over_time": "Initially Meera planned to use Razorpay, but it was dropped on 20 Oct because of a lack of business KYC, and UPI QR manual confirmation was chosen instead. On 2 Nov, Kabir found that Razorpay test mode works without KYC, so the group switched back to Razorpay test mode.",
+        "confidence": "high",
+        "downgraded": false,
+        "evidence": [
+          {
+            "msg_id": 66,
+            "line": 71,
+            "timestamp": "2026-11-02T20:49",
+            "sender": "Aarav",
+            "text": "haan. Razorpay test mode final. QR wala scrap.",
+            "quote": "haan. Razorpay test mode final. QR wala scrap.",
+            "why": "Confirms the final decision to use Razorpay test mode and scrap the QR method.",
+            "flag": "ok"
+          },
+          {
+            "msg_id": 62,
+            "line": 67,
+            "timestamp": "2026-11-02T20:45",
+            "sender": "Kabir",
+            "text": "GOOD NEWS. Razorpay test mode bina KYC ke chalta hai! maine integrate kar diya, checkout chal raha hai",
+            "quote": "GOOD NEWS. Razorpay test mode bina KYC ke chalta hai! maine integrate kar diya, checkout chal raha hai",
+            "why": "Explains why they switched back to Razorpay test mode.",
+            "flag": "ok"
+          },
+          {
+            "msg_id": 51,
+            "line": 56,
+            "timestamp": "2026-10-20T20:16",
+            "sender": "Aarav",
+            "text": "agreed. final decision: no Razorpay, UPI QR manual",
+            "quote": "agreed. final decision: no Razorpay, UPI QR manual",
+            "why": "Shows the previous decision to drop Razorpay and use UPI QR.",
+            "flag": "ok"
+          }
+        ],
+        "dropped_citations": [],
+        "draft_before_review": null
+      },
+      "auto_pass": true,
+      "problems": []
+    },
+    {
+      "id": 2,
+      "question": "Who is responsible for payments now, and did they finish it?",
+      "expected": "Kabir (took it over from Meera on 2 Nov, #67). Checkout is integrated (#62) but the payments webhook is still pending as of 10 Nov (#86), so not finished.",
+      "result": {
+        "question": "Who is responsible for payments now, and did they finish it?",
+        "status": "answered",
+        "answer": "Kabir is responsible for payments now. He has not finished it completely yet; he integrated checkout using Razorpay test mode, but the webhook is still pending.",
+        "changed_over_time": "Meera was initially responsible for payments (using Razorpay), but after KYC issues they switched to UPI QR, and finally Kabir took over payments when he integrated Razorpay test mode.",
+        "confidence": "high",
+        "downgraded": false,
+        "evidence": [
+          {
+            "msg_id": 67,
+            "line": 72,
+            "timestamp": "2026-11-02T20:50",
+            "sender": "Kabir",
+            "text": "payments ab mere paas, Meera tum report pe focus karo",
+            "quote": "payments ab mere paas, Meera tum report pe focus karo",
+            "why": "Kabir states he has taken over payments.",
+            "flag": "ok"
+          },
+          {
+            "msg_id": 86,
+            "line": 91,
+            "timestamp": "2026-11-10T21:13",
+            "sender": "Kabir",
+            "text": "payments webhook bacha hai",
+            "quote": "payments webhook bacha hai",
+            "why": "Shows that payments are not fully completed yet as the webhook is still remaining.",
+            "flag": "ok"
+          },
+          {
+            "msg_id": 62,
+            "line": 67,
+            "timestamp": "2026-11-02T20:45",
+            "sender": "Kabir",
+            "text": "GOOD NEWS. Razorpay test mode bina KYC ke chalta hai! maine integrate kar diya, checkout chal raha hai",
+            "quote": "maine integrate kar diya, checkout chal raha hai",
+            "why": "Shows Kabir integrated the checkout in test mode.",
+            "flag": "ok"
+          }
+        ],
+        "dropped_citations": [],
+        "draft_before_review": null
+      },
+      "auto_pass": true,
+      "problems": []
+    },
+    {
+      "id": 3,
+      "question": "When is demo day?",
+      "expected": "Thursday 26 Nov 2026 (#79, #80). It was 4 Dec (#28), moved to 27 Nov (#69), then corrected to 26 Nov because the notice had a typo.",
+      "result": {
+        "question": "When is demo day?",
+        "status": "answered",
+        "answer": "Demo day is scheduled for Thursday, 26 November 2026.",
+        "changed_over_time": "It was originally planned for 4 December 2026, then rescheduled to 27 November 2026 due to a notice typo, and finally corrected to 26 November 2026.",
+        "confidence": "high",
+        "downgraded": false,
+        "evidence": [
+          {
+            "msg_id": 80,
+            "line": 85,
+            "timestamp": "2026-11-09T17:31",
+            "sender": "Aarav",
+            "text": "ohh. ok so 26 Nov final",
+            "quote": "ohh. ok so 26 Nov final",
+            "why": "Confirms 26 Nov as the final date.",
+            "flag": "ok"
+          },
+          {
+            "msg_id": 79,
+            "line": 84,
+            "timestamp": "2026-11-09T17:30",
+            "sender": "Priya",
+            "text": "Correction. Sir se baat hui. Demo day 26 Nov (Thursday), 27 nahi. Notice mein typo tha",
+            "quote": "Demo day 26 Nov (Thursday), 27 nahi. Notice mein typo تھا۔",
+            "why": "Corrects the date from 27 Nov to 26 Nov due to a typo in the notice.",
+            "flag": "ok"
+          },
+          {
+            "msg_id": 69,
+            "line": 74,
+            "timestamp": "2026-11-05T18:10",
+            "sender": "Aarav",
+            "text": "URGENT. college ne demo day prepone kar diya. ab 27 Nov (Friday)",
+            "quote": "URGENT. college ne demo day prepone kar diya. ab 27 Nov (Friday)",
+            "why": "Shows the first change of date to 27 Nov.",
+            "flag": "ok"
+          }
+        ],
+        "dropped_citations": [],
+        "draft_before_review": null
+      },
+      "auto_pass": true,
+      "problems": []
+    },
+    {
+      "id": 4,
+      "question": "When is the report due?",
+      "expected": "23 Nov 2026 (#81), worked out as 3 days before the 26 Nov demo (rule from #28); Priya said 'yes' (#82). Earlier 1 Dec, then '24 Nov? / haan shayad'.",
+      "result": {
+        "question": "When is the report due?",
+        "status": "answered",
+        "answer": "The report is due on 23 November 2026.",
+        "changed_over_time": "It was originally 1 December 2026, then changed to 24 November when the demo day was moved to 27 November, and finally set to 23 November when the demo day was corrected to 26 November.",
+        "confidence": "high",
+        "downgraded": false,
+        "evidence": [
+          {
+            "msg_id": 81,
+            "line": 86,
+            "timestamp": "2026-11-09T17:32",
+            "sender": "Meera",
+            "text": "toh report 23 Nov",
+            "quote": "toh report 23 Nov",
+            "why": "Meera confirms the report deadline as 23 November after the demo day was finalized for 26 November.",
+            "flag": "ok"
+          },
+          {
+            "msg_id": 72,
+            "line": 77,
+            "timestamp": "2026-11-05T18:13",
+            "sender": "Meera",
+            "text": "toh report ka deadline bhi change. 24 Nov?",
+            "quote": "toh report ka deadline bhi change. 24 Nov?",
+            "why": "Earlier change to 24 November when demo day was moved to 27 November.",
+            "flag": "ok"
+          },
+          {
+            "msg_id": 28,
+            "line": 33,
+            "timestamp": "2026-10-12T19:30",
+            "sender": "Meera",
+            "text": "Reminder: report due 3 days before demo day. Demo day 4 Dec so report 1 Dec",
+            "quote": "Reminder: report due 3 days before demo day. Demo day 4 Dec so report 1 Dec",
+            "why": "Original report due date based on the initial 4 December demo day.",
+            "flag": "ok"
+          }
+        ],
+        "dropped_citations": [],
+        "draft_before_review": null
+      },
+      "auto_pass": true,
+      "problems": []
+    },
+    {
+      "id": 5,
+      "question": "Who is working on the search feature?",
+      "expected": "Nobody. Kabir had it in the 5 Oct split but gave it up on 19 Oct (#44); on 10 Nov Priya said nobody has taken it (#87), Priya declined (#89) and Rohan deferred it to the Saturday 14 Nov meeting (#91). The chat ends before that meeting.",
+      "result": {
+        "question": "Who is working on the search feature?",
+        "status": "answered",
+        "answer": "The search feature is currently unassigned. Kabir dropped it because of chat complexity, and subsequent attempts to assign it to Priya, Rohan, or Meera did not result in an owner; it is scheduled to be discussed in the upcoming team meeting.",
+        "changed_over_time": "Initially assigned to Kabir on 05 Oct, but on 19 Oct Kabir dropped it because chat feature required websockets. Since then, it has remained unassigned.",
+        "confidence": "high",
+        "downgraded": false,
+        "evidence": [
+          {
+            "msg_id": 44,
+            "line": 49,
+            "timestamp": "2026-10-19T18:16",
+            "sender": "Kabir",
+            "text": "chat main kar lunga. search koi aur le lo please",
+            "quote": "chat main kar lunga. search koi aur le lo please",
+            "why": "Kabir gives up the search feature and asks someone else to take it.",
+            "flag": "ok"
+          },
+          {
+            "msg_id": 87,
+            "line": 92,
+            "timestamp": "2026-11-10T21:14",
+            "sender": "Priya",
+            "text": "great. search ka kya? abhi bhi koi nahi le raha",
+            "quote": "great. search ka kya? abhi bhi koi nahi le raha",
+            "why": "Priya points out that the search feature still has no owner.",
+            "flag": "ok"
+          },
+          {
+            "msg_id": 91,
+            "line": 96,
+            "timestamp": "2026-11-10T21:18",
+            "sender": "Rohan",
+            "text": "main schema + tests mein hoon. search Saturday ko discuss karte hain",
+            "quote": "main schema + tests mein hoon. search Saturday ko discuss کرتے hain",
+            "why": "Rohan declines taking it immediately and pushes the discussion to Saturday.",
+            "flag": "ok"
+          }
+        ],
+        "dropped_citations": [],
+        "draft_before_review": null
+      },
+      "auto_pass": true,
+      "problems": []
+    },
+    {
+      "id": 6,
+      "question": "Is there anything nobody is working on?",
+      "expected": "Yes: search has no owner (#44, #87-#91). It's on the 14 Nov meeting agenda (#97) but the outcome isn't in the chat.",
+      "result": {
+        "question": "Is there anything nobody is working on?",
+        "status": "answered",
+        "answer": "Yes, the search feature is currently unassigned after Kabir dropped it due to the complexity of the chat feature.",
+        "changed_over_time": "Initially, search was assigned to Kabir along with the chat feature, but on 19 October 2026 Kabir dropped search, and it has remained unassigned since.",
+        "confidence": "high",
+        "downgraded": false,
+        "evidence": [
+          {
+            "msg_id": 44,
+            "line": 49,
+            "timestamp": "2026-10-19T18:16",
+            "sender": "Kabir",
+            "text": "chat main kar lunga. search koi aur le lo please",
+            "quote": "chat main kar lunga. search koi aur le lo please",
+            "why": "Kabir gives up the search feature.",
+            "flag": "ok"
+          },
+          {
+            "msg_id": 87,
+            "line": 92,
+            "timestamp": "2026-11-10T21:14",
+            "sender": "Priya",
+            "text": "great. search ka kya? abhi bhi koi nahi le raha",
+            "quote": "great. search ka kya? abhi bhi koi nahi le raha",
+            "why": "Priya points out that nobody is working on search.",
+            "flag": "ok"
+          },
+          {
+            "msg_id": 91,
+            "line": 96,
+            "timestamp": "2026-11-10T21:18",
+            "sender": "Rohan",
+            "text": "main schema + tests mein hoon. search Saturday ko discuss karte hain",
+            "quote": "main schema + tests mein hoon. search Saturday ko discuss کرتے hain",
+            "why": "Rohan declines taking it immediately and postpones discussion.",
+            "flag": "ok"
+          }
+        ],
+        "dropped_citations": [],
+        "draft_before_review": null
+      },
+      "auto_pass": true,
+      "problems": []
+    },
+    {
+      "id": 7,
+      "question": "Who owns auth, and is it done?",
+      "expected": "Kabir. Rohan handed it over on 24 Oct (#52-#55). Kabir reported 'auth done, merged' on 10 Nov (#85).",
+      "result": {
+        "question": "Who owns auth, and is it done?",
+        "status": "answered",
+        "answer": "Kabir owns the auth workstream, and it is done and merged.",
+        "changed_over_time": "Initially Rohan was assigned auth, but on 24 Oct he handed it over to Kabir due to being overloaded, and Kabir completed and merged it by 10 Nov.",
+        "confidence": "high",
+        "downgraded": false,
+        "evidence": [
+          {
+            "msg_id": 85,
+            "line": 90,
+            "timestamp": "2026-11-10T21:12",
+            "sender": "Kabir",
+            "text": "auth done, merged. chat 70%",
+            "quote": "auth done, merged.",
+            "why": "Shows that auth is completed and merged.",
+            "flag": "ok"
+          },
+          {
+            "msg_id": 54,
+            "line": 59,
+            "timestamp": "2026-10-24T23:25",
+            "sender": "Kabir",
+            "text": "arre theek hai, auth bhi le leta hoon. but Rohan you do the DB schema and the tests then",
+            "quote": "arre theek है, auth bhi le leta हूँ.",
+            "why": "Shows Kabir taking over auth from Rohan.",
+            "flag": "ok"
+          },
+          {
+            "msg_id": 17,
+            "line": 17,
+            "timestamp": "2026-10-05T20:02",
+            "sender": "Aarav",
+            "text": "Task split karte hain:\nRohan - auth (login/signup)\nPriya - listings UI\nMeera - payments + report/PPT\nKabir - search + chat between buyer/seller\nMain - deployment",
+            "quote": "Rohan - auth (login/signup)",
+            "why": "Shows the initial assignment of auth to Rohan.",
+            "flag": "ok"
+          }
+        ],
+        "dropped_citations": [],
+        "draft_before_review": null
+      },
+      "auto_pass": true,
+      "problems": []
+    },
+    {
+      "id": 8,
+      "question": "Rohan ne tests complete kar diye kya?",
+      "expected": "Nahi. Tests still pending: promised 'kal raat tak' (6 Nov, #76), missed (#78), on 9 Nov 'tests ab bhi pending hain, I'll do by this Sunday' (15 Nov, #84). No later message says they're done.",
+      "result": {
+        "question": "Rohan ne tests complete kar diye kya?",
+        "status": "answered",
+        "answer": "Nahi, Rohan ke tests abhi complete nahi hue hain; usne bataya ki tests abhi pending hain aur woh is Sunday tak kar dega.",
+        "changed_over_time": "Pehle Rohan ne 6 Nov ko kaha tha ki woh kal raat tak tests kar dega, phir 7 Nov ko bola ki tests nahi ho paye aur kal pakka karega, aur aakhir mein 9 Nov ko bola ki tests abhi bhi pending hain aur is Sunday tak karega.",
+        "confidence": "high",
+        "downgraded": false,
+        "evidence": [
+          {
+            "msg_id": 84,
+            "line": 89,
+            "timestamp": "2026-11-09T17:40",
+            "sender": "Rohan",
+            "text": "tests ab bhi pending hain, I'll do by this Sunday",
+            "quote": "tests ab bhi pending hain, I'll do by this Sunday",
+            "why": "Rohan confirms that tests are still pending and gives a new deadline of Sunday.",
+            "flag": "ok"
+          },
+          {
+            "msg_id": 78,
+            "line": 83,
+            "timestamp": "2026-11-07T23:50",
+            "sender": "Rohan",
+            "text": "sorry yaar, tests nahi ho paye. kal pakka",
+            "quote": "sorry yaar, tests nahi ho paye. kal pakka",
+            "why": "Shows an earlier failed promise regarding tests.",
+            "flag": "ok"
+          }
+        ],
+        "dropped_citations": [],
+        "draft_before_review": null
+      },
+      "auto_pass": true,
+      "problems": []
+    },
+    {
+      "id": 9,
+      "question": "Which domain did we buy, from where, and how much did it cost?",
+      "expected": "campuscart.in from Namecheap for Rs 650 (#38, #40). GoDaddy's Rs 800 was only the first option.",
+      "result": {
+        "question": "Which domain did we buy, from where, and how much did it cost?",
+        "status": "answered",
+        "answer": "The team bought the domain campuscart.in from Namecheap for Rs 650.",
+        "changed_over_time": "Initially Aarav checked GoDaddy where it was priced at Rs 800/year, but after Kabir suggested checking Namecheap, Aarav found it for Rs 650 on Namecheap and bought it from there.",
+        "confidence": "high",
+        "downgraded": false,
+        "evidence": [
+          {
+            "msg_id": 35,
+            "line": 40,
+            "timestamp": "2026-10-16T21:05",
+            "sender": "Aarav",
+            "text": "domain lena hai. GoDaddy pe campuscart.in Rs 800/year dikha raha",
+            "quote": "GoDaddy pe campuscart.in Rs 800/year dikha raha",
+            "why": "Shows the initial domain price seen on GoDaddy.",
+            "flag": "ok"
+          },
+          {
+            "msg_id": 38,
+            "line": 43,
+            "timestamp": "2026-10-16T21:41",
+            "sender": "Aarav",
+            "text": "haan Namecheap pe Rs 650. wahi se leta hoon",
+            "quote": "haan Namecheap pe Rs 650. wahi se leta hoon",
+            "why": "Shows the final choice of Namecheap and the cost of Rs 650.",
+            "flag": "ok"
+          },
+          {
+            "msg_id": 40,
+            "line": 45,
+            "timestamp": "2026-10-16T21:50",
+            "sender": "Aarav",
+            "text": "bought it. receipt bhej raha hoon",
+            "quote": "bought it. receipt bhej raha hoon",
+            "why": "Confirms the purchase was made.",
+            "flag": "ok"
+          }
+        ],
+        "dropped_citations": [],
+        "draft_before_review": null
+      },
+      "auto_pass": true,
+      "problems": []
+    },
+    {
+      "id": 10,
+      "question": "Where are we deploying, and is the app live yet?",
+      "expected": "Render (decided 26 Oct, #61). Aarav said on 9 Nov he's deploying with a 15 Nov target (#83); a live link is required (#82). The chat doesn't say whether it's live yet.",
+      "result": {
+        "question": "Where are we deploying, and is the app live yet?",
+        "status": "answered",
+        "answer": "The app is planned to be deployed on Render, and it is not live yet as Aarav stated he is deploying it and expects it to be ready by 15 Nov.",
+        "changed_over_time": "Initially Aarav suggested AWS, but Meera raised concerns about free tier bills, so they decided on Render instead on 26 Oct.",
+        "confidence": "high",
+        "downgraded": false,
+        "evidence": [
+          {
+            "msg_id": 61,
+            "line": 66,
+            "timestamp": "2026-10-26T21:33",
+            "sender": "Aarav",
+            "text": "Render. decided.",
+            "quote": "Render. decided.",
+            "why": "Confirms the decision to use Render for deployment.",
+            "flag": "ok"
+          },
+          {
+            "msg_id": 83,
+            "line": 88,
+            "timestamp": "2026-11-09T17:34",
+            "sender": "Aarav",
+            "text": "Render pe deploy kar raha hoon, 15 Nov tak ready",
+            "quote": "Render pe deploy kar raha hoon, 15 Nov tak ready",
+            "why": "Shows the app is not live yet and is targeted for 15 Nov.",
+            "flag": "ok"
+          },
+          {
+            "msg_id": 60,
+            "line": 65,
+            "timestamp": "2026-10-26T21:31",
+            "sender": "Meera",
+            "text": "Don't use AWS, free tier ka bill aa jata hai. Render ya Railway use karo",
+            "quote": "Don't use AWS, free tier ka bill aa jata hai. Render ya Railway use karo",
+            "why": "Shows the previous discussion regarding AWS and the shift to Render.",
+            "flag": "ok"
+          }
+        ],
+        "dropped_citations": [],
+        "draft_before_review": null
+      },
+      "auto_pass": true,
+      "problems": []
+    },
+    {
+      "id": 11,
+      "question": "What did the team decide about search at the Saturday 14 Nov meeting?",
+      "expected": "The chat doesn't say: it ends on 12 Nov, before the meeting. Search was on the agenda (#97).",
+      "result": {
+        "question": "What did the team decide about search at the Saturday 14 Nov meeting?",
+        "status": "not_in_chat",
+        "answer": "The chat doesn't say what the team decided about search at the Saturday 14 Nov meeting because that meeting is planned for a future date (14 Nov) and the chat ends on 12 Nov.",
+        "changed_over_time": "",
+        "confidence": "high",
+        "downgraded": false,
+        "evidence": [
+          {
+            "msg_id": 92,
+            "line": 97,
+            "timestamp": "2026-11-12T20:00",
+            "sender": "Aarav",
+            "text": "Saturday 14 Nov ko team meet rakhte hain, 4 PM, college library. Who's coming?",
+            "quote": "Saturday 14 Nov ko team meet rakhte hain, 4 PM, college library. Who's coming?",
+            "why": "Shows the meeting is scheduled for Saturday 14 Nov.",
+            "flag": "ok"
+          },
+          {
+            "msg_id": 97,
+            "line": 102,
+            "timestamp": "2026-11-12T20:10",
+            "sender": "Aarav",
+            "text": "ok agenda: search kaun karega + deployment status",
+            "quote": "ok agenda: search kaun karega + deployment status",
+            "why": "Shows search assignment is on the agenda for that meeting, not yet decided.",
+            "flag": "ok"
+          },
+          {
+            "msg_id": 102,
+            "line": 107,
+            "timestamp": "2026-11-12T20:13",
+            "sender": "Aarav",
+            "text": "obviously 😂",
+            "quote": "obviously 😂",
+            "why": "This is the last message of the chat on 12 Nov, so no events after this point are known.",
+            "flag": "ok"
+          }
+        ],
+        "dropped_citations": [],
+        "draft_before_review": null
+      },
+      "auto_pass": true,
+      "problems": []
+    },
+    {
+      "id": 12,
+      "question": "Which logo did we finalise?",
+      "expected": "None was finalised. Priya shared 2 options (#98, image not readable); only Meera gave an opinion, preferring the second/blue one (#101).",
+      "result": {
+        "question": "Which logo did we finalise?",
+        "status": "partial",
+        "answer": "The chat does not state that a logo was finalised. Priya shared two logo options, and Meera expressed a preference for the second blue one, but finalisation has not been recorded yet.",
+        "changed_over_time": "",
+        "confidence": "high",
+        "downgraded": false,
+        "evidence": [
+          {
+            "msg_id": 98,
+            "line": 103,
+            "timestamp": "2026-11-12T20:11",
+            "sender": "Priya",
+            "text": "logo ke liye 2 options bheje hain, dekho",
+            "quote": "logo ke liye 2 options bheje hain, dekho",
+            "why": "Priya shares two logo options.",
+            "flag": "ok"
+          },
+          {
+            "msg_id": 101,
+            "line": 106,
+            "timestamp": "2026-11-12T20:12",
+            "sender": "Meera",
+            "text": "second wala better lag raha, blue wala",
+            "quote": "second wala better lag raha, blue wala",
+            "why": "Meera expresses her preference for the second blue option, but no final decision is made.",
+            "flag": "ok"
+          }
+        ],
+        "dropped_citations": [],
+        "draft_before_review": null
+      },
+      "auto_pass": true,
+      "problems": []
+    },
+    {
+      "id": 13,
+      "question": "Backend aur database ke liye kya decide hua tha?",
+      "expected": "Django backend (React frontend) (#12) and Postgres database (#15). Firebase was proposed by Aarav but rejected.",
+      "result": {
+        "question": "Backend aur database ke liye kya decide hua tha?",
+        "status": "answered",
+        "answer": "Backend ke liye Django aur database ke liye Postgres decide hua tha.",
+        "changed_over_time": "Shuru mein Aarav ne React + Firebase suggest kiya tha, aur Meera ne SQLite pucha tha, lekin baad mein sabne Django aur Postgres final kar diya.",
+        "confidence": "high",
+        "downgraded": false,
+        "evidence": [
+          {
+            "msg_id": 12,
+            "line": 12,
+            "timestamp": "2026-10-03T21:23",
+            "sender": "Aarav",
+            "text": "ok ok fine. Django backend, React frontend. final",
+            "quote": "Django backend, React frontend. final",
+            "why": "Shows the final decision for the backend.",
+            "flag": "ok"
+          },
+          {
+            "msg_id": 15,
+            "line": 15,
+            "timestamp": "2026-10-03T21:26",
+            "sender": "Aarav",
+            "text": "done. Postgres",
+            "quote": "done. Postgres",
+            "why": "Shows the final decision for the database.",
+            "flag": "ok"
+          },
+          {
+            "msg_id": 8,
+            "line": 8,
+            "timestamp": "2026-10-03T21:18",
+            "sender": "Aarav",
+            "text": "stack pehle decide karo. I say React + Firebase, fast hai",
+            "quote": "I say React + Firebase, fast hai",
+            "why": "Initial proposal for the tech stack.",
+            "flag": "ok"
+          }
+        ],
+        "dropped_citations": [],
+        "draft_before_review": null
+      },
+      "auto_pass": true,
+      "problems": []
+    },
+    {
+      "id": 14,
+      "question": "What is Meera responsible for now?",
+      "expected": "The report and PPT, fully (#68). Payments, which were hers in the original split, moved to Kabir on 2 Nov (#67).",
+      "result": {
+        "question": "What is Meera responsible for now?",
+        "status": "answered",
+        "answer": "Meera is currently responsible for the report and PPT fully.",
+        "changed_over_time": "Originally she was assigned payments and report/PPT, but after Razorpay issues and Kabir taking over payments, she shifted to focusing fully on the report and PPT.",
+        "confidence": "high",
+        "downgraded": false,
+        "evidence": [
+          {
+            "msg_id": 68,
+            "line": 73,
+            "timestamp": "2026-11-02T20:51",
+            "sender": "Meera",
+            "text": "thanks Kabir 🙏 I'll take report + PPT fully",
+            "quote": "I'll take report + PPT fully",
+            "why": "Meera confirms she is taking over the report and PPT fully.",
+            "flag": "ok"
+          },
+          {
+            "msg_id": 17,
+            "line": 17,
+            "timestamp": "2026-10-05T20:02",
+            "sender": "Aarav",
+            "text": "Task split karte hain:\nRohan - auth (login/signup)\nPriya - listings UI\nMeera - payments + report/PPT\nKabir - search + chat between buyer/seller\nMain - deployment",
+            "quote": "Meera - payments + report/PPT",
+            "why": "Shows her original task assignment.",
+            "flag": "ok"
+          },
+          {
+            "msg_id": 67,
+            "line": 72,
+            "timestamp": "2026-11-02T20:50",
+            "sender": "Kabir",
+            "text": "payments ab mere paas, Meera tum report pe focus karo",
+            "quote": "payments ab mere paas, Meera tum report pe focus karo",
+            "why": "Kabir takes payments and asks Meera to focus on the report.",
+            "flag": "ok"
+          }
+        ],
+        "dropped_citations": [],
+        "draft_before_review": null
+      },
+      "auto_pass": true,
+      "problems": []
+    },
+    {
+      "id": 15,
+      "question": "What is the total budget of the project?",
+      "expected": "The chat doesn't say. The only cost mentioned is the Rs 650 domain (#38).",
+      "result": {
+        "question": "What is the total budget of the project?",
+        "status": "not_in_chat",
+        "answer": "The chat doesn't say the total budget of the project. It only mentions buying the domain campuscart.in from Namecheap for Rs 650.",
+        "changed_over_time": "",
+        "confidence": "high",
+        "downgraded": false,
+        "evidence": [
+          {
+            "msg_id": 38,
+            "line": 43,
+            "timestamp": "2026-10-16T21:41",
+            "sender": "Aarav",
+            "text": "haan Namecheap pe Rs 650. wahi se leta hoon",
+            "quote": "haan Namecheap pe Rs 650. wahi se leta hoon",
+            "why": "Shows the cost of the domain name.",
+            "flag": "ok"
+          }
+        ],
+        "dropped_citations": [],
+        "draft_before_review": null
+      },
+      "auto_pass": true,
+      "problems": []
+    },
+    {
+      "id": 16,
+      "question": "Is Kabir coming to the Saturday meeting?",
+      "expected": "Not in person: family function, but he'll join on a call (#96).",
+      "result": {
+        "question": "Is Kabir coming to the Saturday meeting?",
+        "status": "answered",
+        "answer": "Kabir cannot attend the Saturday meeting in person because of a family function, but he will join via call.",
+        "changed_over_time": "",
+        "confidence": "high",
+        "downgraded": false,
+        "evidence": [
+          {
+            "msg_id": 96,
+            "line": 101,
+            "timestamp": "2026-11-12T20:05",
+            "sender": "Kabir",
+            "text": "can't make it, family function. but call pe join kar lunga",
+            "quote": "can't make it, family function. but call pe join kar lunga",
+            "why": "Kabir states he cannot make it in person due to a family function, but will join the meeting on a call.",
+            "flag": "ok"
+          }
+        ],
+        "dropped_citations": [],
+        "draft_before_review": null
+      },
+      "auto_pass": true,
+      "problems": []
+    },
+    {
+      "id": 17,
+      "question": "Did Aarav confirm he is attending the Saturday meeting?",
+      "expected": "Yes. Rohan asked 'Aarav you're also coming right?' (#100) and Aarav replied 'obviously 😂' (#102). Meera's message in between is about the logo.",
+      "result": {
+        "question": "Did Aarav confirm he is attending the Saturday meeting?",
+        "status": "answered",
+        "answer": "Yes, Aarav confirmed he is attending the Saturday meeting.",
+        "changed_over_time": "",
+        "confidence": "high",
+        "downgraded": false,
+        "evidence": [
+          {
+            "msg_id": 92,
+            "line": 97,
+            "timestamp": "2026-11-12T20:00",
+            "sender": "Aarav",
+            "text": "Saturday 14 Nov ko team meet rakhte hain, 4 PM, college library. Who's coming?",
+            "quote": "Saturday 14 Nov ko team meet rakhte hain, 4 PM, college library. Who's coming?",
+            "why": "Aarav organized the Saturday meeting.",
+            "flag": "ok"
+          },
+          {
+            "msg_id": 102,
+            "line": 107,
+            "timestamp": "2026-11-12T20:13",
+            "sender": "Aarav",
+            "text": "obviously 😂",
+            "quote": "obviously 😂",
+            "why": "Aarav confirmed he is coming when asked by Rohan.",
+            "flag": "ok"
+          }
+        ],
+        "dropped_citations": [],
+        "draft_before_review": null
+      },
+      "auto_pass": true,
+      "problems": []
+    },
+    {
+      "id": 18,
+      "question": "Priya abhi kis cheez pe kaam kar rahi hai?",
+      "expected": "Seller dashboard (#58, #89). Her listings UI + filters are done (#58).",
+      "result": {
+        "question": "Priya abhi kis cheez pe kaam kar rahi hai?",
+        "status": "answered",
+        "answer": "Priya abhi seller dashboard pe kaam kar rahi hai (uski listing page aur filters wali UI pehle hi ho chuki hai).",
+        "changed_over_time": "Pehle Priya listings UI pe kaam kar rahi thi, jo usne 26 October ko complete kar li aur fir seller dashboard par move kar gayi.",
+        "confidence": "high",
+        "downgraded": false,
+        "evidence": [
+          {
+            "msg_id": 58,
+            "line": 63,
+            "timestamp": "2026-10-26T21:00",
+            "sender": "Priya",
+            "text": "UI listing + filters done. Now doing seller dashboard",
+            "quote": "UI listing + filters done. Now doing seller dashboard",
+            "why": "Shows Priya finished listings and filters, and is currently doing the seller dashboard.",
+            "flag": "ok"
+          }
+        ],
+        "dropped_citations": [],
+        "draft_before_review": null
+      },
+      "auto_pass": true,
+      "problems": []
+    }
+  ]
+}

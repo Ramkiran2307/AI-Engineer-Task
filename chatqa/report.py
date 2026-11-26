@@ -14,6 +14,9 @@ STATUS_LABEL = {"answered": "ANSWERED", "partial": "PARTIAL (some of it isn't in
                 "not_in_chat": "NOT IN CHAT"}
 
 
+_NO_HISTORY = {"", "-", "n/a", "na", "none", "not applicable", "no change", "no changes", "unchanged"}
+
+
 def _short(text: str, n: int = 160) -> str:
     one = " / ".join(x.strip() for x in text.splitlines() if x.strip())
     return one if len(one) <= n else one[: n - 1] + "…"
@@ -23,7 +26,7 @@ def format_answer(a: VerifiedAnswer) -> str:
     out = [f"Q: {a.question}",
            f"Status: {STATUS_LABEL.get(a.status, a.status)}   (confidence: {a.confidence})"]
     out.append("A: " + textwrap.fill(a.answer, 100, subsequent_indent="   "))
-    if a.changed_over_time:
+    if a.changed_over_time and a.changed_over_time.strip().lower().rstrip(".") not in _NO_HISTORY:
         out.append("History: " + textwrap.fill(a.changed_over_time, 100, subsequent_indent="         "))
     if a.evidence:
         out.append("Evidence (from the chat file):")

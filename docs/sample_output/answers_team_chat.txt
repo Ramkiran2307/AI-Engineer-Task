@@ -1,0 +1,47 @@
+Q: What did we decide about payments, and has that changed?
+Status: ANSWERED   (confidence: high)
+A: The final decision for payments is to use Razorpay in test mode, which does not require business
+   KYC. This was agreed upon after Kabir found that test mode works without KYC.
+History: Initially, Meera planned to use Razorpay. On 20 Oct, it was dropped due to a lack of business KYC,
+         and the team switched to UPI QR with manual confirmation. On 2 Nov, Kabir announced that
+         Razorpay test mode works without KYC, so the team reverted back to Razorpay test mode and
+         scrapped the QR method.
+Evidence (from the chat file):
+  [#66 | Mon 02 Nov 2026, 8:49 PM | Aarav | line 71]
+      "haan. Razorpay test mode final. QR wala scrap."
+      -> Confirms the final decision to use Razorpay test mode and scrap UPI QR.
+  [#62 | Mon 02 Nov 2026, 8:45 PM | Kabir | line 67]
+      "GOOD NEWS. Razorpay test mode bina KYC ke chalta hai! maine integrate kar diya, checkout chal raha hai"
+      -> Explains why the team returned to Razorpay.
+  [#51 | Tue 20 Oct 2026, 8:16 PM | Aarav | line 56]
+      "agreed. final decision: no Razorpay, UPI QR manual"
+      -> Shows the previous decision to drop Razorpay and use UPI QR due to KYC issues.
+
+Q: Search ka kaam kaun kar raha hai?
+Status: ANSWERED   (confidence: high)
+A: Search ka kaam abhi kisi ke paas nahi hai aur unassigned hai. Kabir ne pehle chhod diya tha, aur 14
+   Nov ki meeting mein is par discussion hoga.
+History: Pehle ye kaam Kabir ke paas tha, lekin 19 Oct ko chat feature complex hone ki wajah se usne search
+         chhod diya aur tab se ye unassigned hai.
+Evidence (from the chat file):
+  [#44 | Mon 19 Oct 2026, 6:16 PM | Kabir | line 49]
+      "chat main kar lunga. search koi aur le lo please"
+      -> Kabir dropped the search task.
+  [#87 | Tue 10 Nov 2026, 9:14 PM | Priya | line 92]
+      "great. search ka kya? abhi bhi koi nahi le raha"
+      -> Priya notes that search is still unassigned.
+  [#97 | Thu 12 Nov 2026, 8:10 PM | Aarav | line 102]
+      "ok agenda: search kaun karega + deployment status"
+      -> Aarav confirms assigning search is on the agenda for the upcoming meeting.
+
+Q: Who designed the final logo?
+Status: PARTIAL (some of it isn't in the chat)   (confidence: high)
+A: Priya shared two logo options for review and Meera preferred the second blue one, but the chat does
+   not state who actually designed them, and a final choice has not been made yet.
+Evidence (from the chat file):
+  [#98 | Thu 12 Nov 2026, 8:11 PM | Priya | line 103]
+      "logo ke liye 2 options bheje hain, dekho"
+      -> Priya shares two logo options but does not mention designing them.
+  [#101 | Thu 12 Nov 2026, 8:12 PM | Meera | line 106]
+      "second wala better lag raha, blue wala"
+      -> Meera expresses a preference for the second option.

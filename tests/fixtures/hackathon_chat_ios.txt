@@ -1,0 +1,29 @@
+[02/02/2026, 10:00:12] Neha: Messages and calls are end-to-end encrypted. No one outside of this chat, not even WhatsApp, can read or listen to them.
+[02/02/2026, 10:01:40] Neha: hackathon team ready! idea: FoodShare app - leftover food from hostels to NGOs
+[02/02/2026, 10:03:05] Arjun: love it. Flutter use karte hain, I know it
+[02/02/2026, 10:04:22] Sara: Flutter ok with me
+[02/02/2026, 10:05:10] Neha: done, Flutter it is
+[02/02/2026, 10:07:44] Neha: roles:
+Arjun - mobile app
+Sara - backend API
+Dev - UI design in Figma
+main pitch deck banaungi
+[02/02/2026, 10:09:02] Dev: ok 👍
+[04/02/2026, 21:15:30] Sara: backend Node + MongoDB pe start kar diya
+[05/02/2026, 18:20:11] Arjun: guys Flutter build mere laptop pe crash ho raha hai, 8GB RAM 😩
+[05/02/2026, 18:22:45] Dev: React Native try karo? Expo se fast hai
+[05/02/2026, 18:30:03] Neha: ok switch to React Native + Expo. Flutter drop
+[05/02/2026, 18:31:17] Arjun: thanks, RN mein kar lunga
+[07/02/2026, 12:00:00] Neha: submission deadline 14 Feb 11:59 PM, organisers ne mail kiya
+[08/02/2026, 09:45:50] Dev: Figma screens done, link bhej raha hoon
+[08/02/2026, 09:46:02] Dev: <attached: 00000012-PHOTO-2026-02-08.jpg>
+[09/02/2026, 22:10:33] Sara: exams aa gaye yaar, backend mujhse nahi hoga ab. Dev tum le sakte ho?
+[09/02/2026, 22:15:48] Dev: haan le leta hoon, design ho gaya hai already
+[10/02/2026, 16:05:21] Neha: update from organisers: deadline extended to 16 Feb 11:59 PM
+[10/02/2026, 16:06:00] Arjun: 🙏 thank god
+[11/02/2026, 20:40:10] Arjun: app login + listing screen ready. map screen kal tak
+[12/02/2026, 23:55:42] Arjun: map screen nahi hua, Google Maps API key ka issue
+[13/02/2026, 10:12:30] Neha: demo video kaun banayega? koi?
+[13/02/2026, 10:30:15] Sara: exams 😭 sorry
+[13/02/2026, 11:02:08] Neha: ok baad mein dekhte hain
+[13/02/2026, 19:20:00] Dev: backend APIs 80% done, deploy Railway pe karunga

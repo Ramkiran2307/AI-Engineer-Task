@@ -82,3 +82,12 @@ def test_ambiguous_dates_resolved_by_ordering():
 def test_not_a_chat():
     with pytest.raises(ParseError):
         parse_chat_text("hello\nthis is not a whatsapp export\n")
+
+
+def test_ios_fixture_chat():
+    ms = parse_chat_file(Path(__file__).parent / "fixtures" / "hackathon_chat_ios.txt")
+    assert len(ms) == 25
+    assert ms[0].ts == datetime(2026, 2, 2, 10, 0, 12)
+    roles = ms[5]
+    assert roles.sender == "Neha" and "main pitch deck banaungi" in roles.text
+    assert ms[14].is_media  # <attached: ...jpg>
